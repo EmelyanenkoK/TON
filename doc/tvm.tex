@@ -461,7 +461,8 @@ When a cell needs to be transferred by a network protocol or stored in a disk fi
 \begin{enumerate}
 \item Two descriptor bytes $d_1$ and $d_2$ are serialized first. Byte $d_1$ equals $r+8s+32l$, where $0\leq r\leq 4$ is the quantity of cell references contained in the cell, $0\leq l\leq 3$ is the level of the cell, and $0\leq s\leq 1$ is $1$ for exotic cells and $0$ for ordinary cells. Byte $d_2$ equals $\lfloor b/8\rfloor+\lceil b/8\rceil$, where $0\leq b\leq 1023$ is the quantity of data bits in~$c$.
 \item Then the data bits are serialized as $\lceil b/8\rceil$ 8-bit octets (bytes). If $b$ is not a multiple of eight, a binary \texttt{1} and up to six binary \texttt{0}s are appended to the data bits. After that, the data is split into $\lceil b/8\rceil$ eight-bit groups, and each group is interpreted as an unsigned big-endian integer $0\dots 255$ and stored into an octet.
-\item Finally, each of the $r$ cell references is represented by 2 bytes encoding $\Depth(c_i)$ explained above in~\ptref{sp:cell.depth} and 32 bytes containing the 256-bit {\em representation hash\/} $\Hash(c_i)$, explained below in~\ptref{sp:repr.hash}, of the cell $c_i$ referred to.
+\item Then for each of the $r$ cell references 2 bytes encoding $\Depth(c_i)$ explained above in~\ptref{sp:cell.depth}.
+\item Finally, each of the $r$ cell references is represented by 32 bytes containing the 256-bit {\em representation hash\/} $\Hash(c_i)$, explained below in~\ptref{sp:repr.hash}, of the cell $c_i$ referred to.
 \end{enumerate}
 In this way, $2+\lceil b/8\rceil+(2+32)r$ bytes of $\CellRepr(c)$ are obtained.
 
